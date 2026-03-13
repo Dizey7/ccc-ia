@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import Sidebar from '@/components/Sidebar';
+import TopBar from '@/components/TopBar';
+import Marquee from '@/components/Marquee';
 
 export const metadata: Metadata = {
   title: 'CCC IA - Assistant Intelligent de Répartition',
@@ -9,13 +11,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className="dark">
-      <body className="bg-gray-950 text-white antialiased" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
+    <html lang="fr">
+      <body className="antialiased" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
         <div className="flex min-h-screen">
           <Sidebar />
-          <main className="flex-1 ml-64">
-            {children}
-          </main>
+          <div className="flex-1 ml-64 flex flex-col">
+            <TopBar />
+            <main className="flex-1 pb-12">
+              {children}
+            </main>
+            <Marquee />
+          </div>
         </div>
       </body>
     </html>
