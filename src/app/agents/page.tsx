@@ -61,7 +61,7 @@ export default function AgentsPage() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `Agents_CCC_IA_${new Date().toISOString().split('T')[0]}.xlsx`;
+    a.download = `Agents_IA_Work_${new Date().toISOString().split('T')[0]}.xlsx`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -70,13 +70,13 @@ export default function AgentsPage() {
     <div className="p-6 space-y-6 animate-fade-in">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white flex items-center gap-3">
-            <Users className="w-7 h-7 text-blue-400" />
+          <h1 className="text-2xl font-bold text-slate-800 flex items-center gap-3">
+            <Users className="w-7 h-7 text-blue-500" />
             Gestion des Agents & Planification
           </h1>
-          <p className="text-gray-400 mt-1">Suivi des disponibilités, plannings optimisés et alertes automatiques</p>
+          <p className="text-slate-500 mt-1">Suivi des disponibilités, plannings optimisés et alertes automatiques</p>
         </div>
-        <button onClick={handleExport} disabled={agents.length === 0} className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-500 disabled:opacity-50 text-sm font-medium">
+        <button onClick={handleExport} disabled={agents.length === 0} className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-500 disabled:opacity-50 text-sm font-medium">
           <Download className="w-4 h-4" /> Exporter
         </button>
       </div>
@@ -92,34 +92,34 @@ export default function AgentsPage() {
       )}
 
       {/* Filters */}
-      <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
+      <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2">
-            <Filter className="w-4 h-4 text-gray-400" />
-            <span className="text-sm text-gray-400">Filtres :</span>
+            <Filter className="w-4 h-4 text-slate-400" />
+            <span className="text-sm text-slate-500">Filtres :</span>
           </div>
 
-          <select value={selectedFile} onChange={e => handleFileChange(e.target.value)} className="bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white">
+          <select value={selectedFile} onChange={e => handleFileChange(e.target.value)} className="bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500">
             <option value="">Sélectionner un fichier</option>
             {files.map(f => <option key={f.id} value={f.id}>{f.name} ({f.agentCount})</option>)}
           </select>
 
           {niveaux.length > 0 && (
-            <select value={filterNiveau} onChange={e => setFilterNiveau(e.target.value)} className="bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white">
+            <select value={filterNiveau} onChange={e => setFilterNiveau(e.target.value)} className="bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500">
               <option value="">Tous les niveaux</option>
               {niveaux.map(n => <option key={n} value={n}>{n}</option>)}
             </select>
           )}
 
           {formations.length > 0 && (
-            <select value={filterFormation} onChange={e => setFilterFormation(e.target.value)} className="bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white">
+            <select value={filterFormation} onChange={e => setFilterFormation(e.target.value)} className="bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500">
               <option value="">Toutes les formations</option>
               {formations.map(f => <option key={f} value={f}>{f}</option>)}
             </select>
           )}
 
           {(filterNiveau || filterFormation) && (
-            <button onClick={() => { setFilterNiveau(''); setFilterFormation(''); }} className="text-xs text-blue-400 hover:text-blue-300">
+            <button onClick={() => { setFilterNiveau(''); setFilterFormation(''); }} className="text-xs text-blue-600 hover:text-blue-500">
               Effacer filtres
             </button>
           )}
@@ -128,21 +128,21 @@ export default function AgentsPage() {
 
       {/* Alerts */}
       {agents.length > 0 && indisponibles > agents.length * 0.2 && (
-        <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-4 flex items-start gap-3">
-          <AlertTriangle className="w-5 h-5 text-amber-400 flex-shrink-0" />
+        <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-start gap-3">
+          <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0" />
           <div>
-            <p className="text-amber-400 font-medium">Alerte : sous-effectif potentiel</p>
-            <p className="text-sm text-gray-400">{indisponibles} agents indisponibles ({Math.round(indisponibles / agents.length * 100)}% de l&apos;effectif)</p>
+            <p className="text-amber-700 font-medium">Alerte : sous-effectif potentiel</p>
+            <p className="text-sm text-slate-600">{indisponibles} agents indisponibles ({Math.round(indisponibles / agents.length * 100)}% de l&apos;effectif)</p>
           </div>
         </div>
       )}
 
       {/* Agent table */}
       {filteredAgents.length > 0 ? (
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
+        <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold text-white">{filteredAgents.length} agents</h3>
-            <div className="flex items-center gap-2 text-sm text-gray-400">
+            <h3 className="font-semibold text-slate-800">{filteredAgents.length} agents</h3>
+            <div className="flex items-center gap-2 text-sm text-slate-500">
               <Search className="w-4 h-4" /> Recherche intégrée dans le tableau
             </div>
           </div>
@@ -150,7 +150,7 @@ export default function AgentsPage() {
         </div>
       ) : (
         !loading && (
-          <div className="text-center py-16 text-gray-500">
+          <div className="text-center py-16 text-slate-400">
             <Users className="w-12 h-12 mx-auto mb-3" />
             <p>{selectedFile ? 'Aucun agent correspondant aux filtres' : 'Sélectionnez un fichier pour voir les agents'}</p>
           </div>

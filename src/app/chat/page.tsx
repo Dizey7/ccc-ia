@@ -19,19 +19,19 @@ export default function ChatPage() {
 
   return (
     <div className="h-screen flex flex-col animate-fade-in">
-      <div className="border-b border-gray-800 p-4 flex items-center justify-between">
+      <div className="border-b border-slate-200 p-4 flex items-center justify-between bg-white">
         <div>
-          <h1 className="text-xl font-bold text-white flex items-center gap-2">
-            <MessageSquare className="w-6 h-6 text-blue-400" />
+          <h1 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+            <MessageSquare className="w-6 h-6 text-blue-500" />
             Chat IA - Assistant de Répartition
           </h1>
-          <p className="text-sm text-gray-400">Posez vos questions en langage naturel sur vos données d&apos;agents</p>
+          <p className="text-sm text-slate-500">Posez vos questions en langage naturel sur vos données d&apos;agents</p>
         </div>
         <div className="flex items-center gap-3">
           <select
             value={selectedFile || ''}
             onChange={e => setSelectedFile(e.target.value || undefined)}
-            className="bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white"
+            className="bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-800 focus:outline-none focus:border-blue-500"
           >
             <option value="">Tous les fichiers</option>
             {files.map(f => (
@@ -40,7 +40,7 @@ export default function ChatPage() {
           </select>
         </div>
       </div>
-      <div className="flex-1 overflow-hidden">
+      <div className="flex-1 overflow-hidden bg-slate-50">
         <ChatInterface fileId={selectedFile} />
       </div>
     </div>

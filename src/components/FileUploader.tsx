@@ -72,9 +72,9 @@ export default function FileUploader({ onUploadComplete }: FileUploaderProps) {
   };
 
   const getFileIcon = (type?: string) => {
-    if (type === 'excel') return <FileSpreadsheet className="w-6 h-6 text-green-400" />;
-    if (type === 'pdf') return <FileText className="w-6 h-6 text-red-400" />;
-    return <File className="w-6 h-6 text-blue-400" />;
+    if (type === 'excel') return <FileSpreadsheet className="w-6 h-6 text-emerald-600" />;
+    if (type === 'pdf') return <FileText className="w-6 h-6 text-red-500" />;
+    return <File className="w-6 h-6 text-blue-500" />;
   };
 
   return (
@@ -86,8 +86,8 @@ export default function FileUploader({ onUploadComplete }: FileUploaderProps) {
         onDrop={handleDrop}
         className={`relative border-2 border-dashed rounded-xl p-10 text-center transition-all cursor-pointer ${
           isDragging
-            ? 'border-blue-500 bg-blue-500/10'
-            : 'border-gray-700 hover:border-gray-500 bg-gray-800/30'
+            ? 'border-blue-500 bg-blue-50'
+            : 'border-slate-300 hover:border-slate-400 bg-white'
         }`}
       >
         <input
@@ -100,50 +100,50 @@ export default function FileUploader({ onUploadComplete }: FileUploaderProps) {
 
         {uploading ? (
           <div className="flex flex-col items-center gap-3">
-            <Loader2 className="w-12 h-12 text-blue-400 animate-spin" />
-            <p className="text-white font-medium">Analyse en cours...</p>
-            <p className="text-sm text-gray-400">L&apos;IA analyse votre fichier</p>
+            <Loader2 className="w-12 h-12 text-blue-500 animate-spin" />
+            <p className="text-slate-800 font-medium">Analyse en cours...</p>
+            <p className="text-sm text-slate-500">L&apos;IA analyse votre fichier</p>
           </div>
         ) : (
           <div className="flex flex-col items-center gap-3">
-            <Upload className="w-12 h-12 text-gray-500" />
-            <p className="text-white font-medium">
+            <Upload className="w-12 h-12 text-slate-400" />
+            <p className="text-slate-800 font-medium">
               Glissez-déposez votre fichier ici
             </p>
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-slate-500">
               ou cliquez pour sélectionner un fichier
             </p>
             <div className="flex gap-3 mt-2">
-              <span className="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-xs">Excel (.xlsx, .xls)</span>
-              <span className="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-xs">CSV (.csv)</span>
-              <span className="px-3 py-1 bg-red-500/20 text-red-400 rounded-full text-xs">PDF (.pdf)</span>
+              <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-medium">Excel (.xlsx, .xls)</span>
+              <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">CSV (.csv)</span>
+              <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-medium">PDF (.pdf)</span>
             </div>
           </div>
         )}
       </div>
 
       {result && (
-        <div className={`rounded-lg p-4 ${result.success ? 'bg-green-500/10 border border-green-500/30' : 'bg-red-500/10 border border-red-500/30'}`}>
+        <div className={`rounded-lg p-4 ${result.success ? 'bg-emerald-50 border border-emerald-200' : 'bg-red-50 border border-red-200'}`}>
           {result.success ? (
             <div className="flex items-start gap-3">
-              <CheckCircle className="w-5 h-5 text-green-400 mt-0.5" />
+              <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5" />
               <div>
-                <p className="text-green-400 font-medium">Fichier analysé avec succès</p>
+                <p className="text-emerald-700 font-medium">Fichier analysé avec succès</p>
                 <div className="flex items-center gap-2 mt-1">
                   {getFileIcon(result.file?.type)}
-                  <span className="text-sm text-gray-300">{result.file?.name}</span>
+                  <span className="text-sm text-slate-700">{result.file?.name}</span>
                 </div>
-                <p className="text-sm text-gray-400 mt-1">
+                <p className="text-sm text-slate-500 mt-1">
                   {result.file?.agentCount} agents détectés • {result.file?.columns?.length} colonnes
                 </p>
               </div>
             </div>
           ) : (
             <div className="flex items-start gap-3">
-              <AlertCircle className="w-5 h-5 text-red-400 mt-0.5" />
+              <AlertCircle className="w-5 h-5 text-red-500 mt-0.5" />
               <div>
-                <p className="text-red-400 font-medium">Erreur</p>
-                <p className="text-sm text-gray-400">{result.error}</p>
+                <p className="text-red-700 font-medium">Erreur</p>
+                <p className="text-sm text-slate-500">{result.error}</p>
               </div>
             </div>
           )}

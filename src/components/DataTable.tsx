@@ -63,27 +63,27 @@ export default function DataTable({ agents, columns, maxRows = 50 }: DataTablePr
     <div className="space-y-3">
       <div className="flex items-center gap-3">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <input
             type="text"
             placeholder="Rechercher dans le tableau..."
             value={search}
             onChange={e => { setSearch(e.target.value); setPage(0); }}
-            className="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+            className="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-lg text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
           />
         </div>
-        <span className="text-sm text-gray-400">{filtered.length} résultats</span>
+        <span className="text-sm text-slate-500">{filtered.length} résultats</span>
       </div>
 
-      <div className="overflow-x-auto rounded-lg border border-gray-700">
+      <div className="overflow-x-auto rounded-lg border border-slate-200">
         <table className="w-full text-sm">
           <thead>
-            <tr className="bg-gray-800/80">
+            <tr className="bg-slate-50">
               {displayColumns.map(col => (
                 <th
                   key={col}
                   onClick={() => handleSort(col)}
-                  className="px-4 py-3 text-left font-medium text-gray-300 cursor-pointer hover:text-white whitespace-nowrap"
+                  className="px-4 py-3 text-left font-medium text-slate-600 cursor-pointer hover:text-slate-900 whitespace-nowrap"
                 >
                   <div className="flex items-center gap-1">
                     {columnLabels[col] || col}
@@ -93,24 +93,24 @@ export default function DataTable({ agents, columns, maxRows = 50 }: DataTablePr
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-800">
+          <tbody className="divide-y divide-slate-100">
             {pageData.map((agent, i) => (
-              <tr key={agent.id || i} className="hover:bg-gray-800/50 transition-colors">
+              <tr key={agent.id || i} className="hover:bg-slate-50 transition-colors">
                 {displayColumns.map(col => (
-                  <td key={col} className="px-4 py-2.5 text-gray-300 whitespace-nowrap max-w-[200px] truncate">
+                  <td key={col} className="px-4 py-2.5 text-slate-700 whitespace-nowrap max-w-[200px] truncate">
                     {col === 'niveau' ? (
                       <span className={`px-2 py-0.5 rounded text-xs font-medium ${
-                        agent.niveau?.includes('3') ? 'bg-purple-500/20 text-purple-300' :
-                        agent.niveau?.includes('2') ? 'bg-blue-500/20 text-blue-300' :
-                        agent.niveau?.includes('1') ? 'bg-green-500/20 text-green-300' :
-                        'bg-gray-500/20 text-gray-400'
+                        agent.niveau?.includes('3') ? 'bg-purple-100 text-purple-700' :
+                        agent.niveau?.includes('2') ? 'bg-blue-100 text-blue-700' :
+                        agent.niveau?.includes('1') ? 'bg-green-100 text-green-700' :
+                        'bg-slate-100 text-slate-500'
                       }`}>
                         {agent.niveau || '-'}
                       </span>
                     ) : col === 'formations' ? (
                       <div className="flex gap-1 flex-wrap">
                         {agent.formations?.map(f => (
-                          <span key={f} className="px-1.5 py-0.5 bg-amber-500/20 text-amber-300 rounded text-xs">
+                          <span key={f} className="px-1.5 py-0.5 bg-amber-100 text-amber-700 rounded text-xs">
                             {f}
                           </span>
                         )) || '-'}
@@ -131,17 +131,17 @@ export default function DataTable({ agents, columns, maxRows = 50 }: DataTablePr
           <button
             onClick={() => setPage(p => Math.max(0, p - 1))}
             disabled={page === 0}
-            className="px-3 py-1.5 bg-gray-800 text-gray-300 rounded text-sm disabled:opacity-50 hover:bg-gray-700"
+            className="px-3 py-1.5 bg-white border border-slate-300 text-slate-700 rounded text-sm disabled:opacity-50 hover:bg-slate-50"
           >
             Précédent
           </button>
-          <span className="text-sm text-gray-400">
+          <span className="text-sm text-slate-500">
             Page {page + 1} sur {totalPages}
           </span>
           <button
             onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))}
             disabled={page >= totalPages - 1}
-            className="px-3 py-1.5 bg-gray-800 text-gray-300 rounded text-sm disabled:opacity-50 hover:bg-gray-700"
+            className="px-3 py-1.5 bg-white border border-slate-300 text-slate-700 rounded text-sm disabled:opacity-50 hover:bg-slate-50"
           >
             Suivant
           </button>

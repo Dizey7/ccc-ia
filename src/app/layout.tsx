@@ -5,7 +5,7 @@ import TopBar from '@/components/TopBar';
 import Marquee from '@/components/Marquee';
 
 export const metadata: Metadata = {
-  title: 'CCC IA - Assistant Intelligent de Répartition',
+  title: 'IA Work - Assistant Intelligent de Répartition',
   description: 'Application intelligente pour la gestion et répartition des agents de sécurité',
 };
 

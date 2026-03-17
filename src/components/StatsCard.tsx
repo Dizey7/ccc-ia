@@ -12,29 +12,29 @@ interface StatsCardProps {
 }
 
 const colors = {
-  blue: { gradient: 'from-cyan-500/15 to-blue-500/15', border: 'border-cyan-500/25', icon: 'text-cyan-400', value: 'text-cyan-400', iconBg: 'from-cyan-500/20 to-blue-500/20' },
-  green: { gradient: 'from-emerald-500/15 to-teal-500/15', border: 'border-emerald-500/25', icon: 'text-emerald-400', value: 'text-emerald-400', iconBg: 'from-emerald-500/20 to-teal-500/20' },
-  amber: { gradient: 'from-amber-500/15 to-orange-500/15', border: 'border-amber-500/25', icon: 'text-amber-400', value: 'text-amber-400', iconBg: 'from-amber-500/20 to-orange-500/20' },
-  red: { gradient: 'from-red-500/15 to-rose-500/15', border: 'border-red-500/25', icon: 'text-red-400', value: 'text-red-400', iconBg: 'from-red-500/20 to-rose-500/20' },
-  purple: { gradient: 'from-violet-500/15 to-purple-500/15', border: 'border-violet-500/25', icon: 'text-violet-400', value: 'text-violet-400', iconBg: 'from-violet-500/20 to-purple-500/20' },
+  blue: { bg: 'bg-blue-50', border: 'border-blue-200', icon: 'text-blue-600', value: 'text-blue-700', iconBg: 'bg-blue-100' },
+  green: { bg: 'bg-emerald-50', border: 'border-emerald-200', icon: 'text-emerald-600', value: 'text-emerald-700', iconBg: 'bg-emerald-100' },
+  amber: { bg: 'bg-amber-50', border: 'border-amber-200', icon: 'text-amber-600', value: 'text-amber-700', iconBg: 'bg-amber-100' },
+  red: { bg: 'bg-red-50', border: 'border-red-200', icon: 'text-red-600', value: 'text-red-700', iconBg: 'bg-red-100' },
+  purple: { bg: 'bg-violet-50', border: 'border-violet-200', icon: 'text-violet-600', value: 'text-violet-700', iconBg: 'bg-violet-100' },
 };
 
 export default function StatsCard({ title, value, subtitle, icon: Icon, color, trend }: StatsCardProps) {
   const c = colors[color];
   return (
-    <div className={`bg-gradient-to-br ${c.gradient} border ${c.border} rounded-2xl p-5 transition-all hover:scale-[1.03] hover:shadow-lg`}>
+    <div className={`${c.bg} border ${c.border} rounded-2xl p-5 transition-all hover:scale-[1.03] hover:shadow-md`}>
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-sm text-slate-400 font-medium">{title}</p>
+          <p className="text-sm text-slate-500 font-medium">{title}</p>
           <p className={`text-3xl font-bold mt-1 ${c.value}`}>{value}</p>
-          {subtitle && <p className="text-xs text-slate-500 mt-1">{subtitle}</p>}
+          {subtitle && <p className="text-xs text-slate-400 mt-1">{subtitle}</p>}
           {trend && (
-            <p className={`text-xs mt-2 font-medium ${trend.value >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+            <p className={`text-xs mt-2 font-medium ${trend.value >= 0 ? 'text-emerald-600' : 'text-red-600'}`}>
               {trend.value >= 0 ? '+' : ''}{trend.value}% {trend.label}
             </p>
           )}
         </div>
-        <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${c.iconBg} flex items-center justify-center`}>
+        <div className={`w-12 h-12 rounded-xl ${c.iconBg} flex items-center justify-center`}>
           <Icon className={`w-6 h-6 ${c.icon}`} />
         </div>
       </div>

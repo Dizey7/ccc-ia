@@ -28,6 +28,8 @@ export default function ChatInterface({ fileId }: ChatInterfaceProps) {
     "Donne-moi les statistiques",
     "Trouve les anomalies",
     "Combien ont DVAF et niveau 2?",
+    "Agents disponibles niveau 3",
+    "Top 10 agents par heures",
   ];
 
   const sendMessage = async (text?: string) => {
@@ -80,8 +82,8 @@ export default function ChatInterface({ fileId }: ChatInterfaceProps) {
         {messages.length === 0 && (
           <div className="flex flex-col items-center justify-center h-full text-center">
             <Bot className="w-16 h-16 text-blue-500 mb-4" />
-            <h3 className="text-xl font-semibold text-white mb-2">Chat IA - CCC</h3>
-            <p className="text-gray-400 mb-6 max-w-md">
+            <h3 className="text-xl font-semibold text-slate-800 mb-2">Chat IA - IA Work</h3>
+            <p className="text-slate-500 mb-6 max-w-md">
               Posez des questions sur vos données d&apos;agents. L&apos;IA analysera les informations et vous donnera des réponses précises.
             </p>
             <div className="grid grid-cols-2 gap-2 max-w-lg">
@@ -89,7 +91,7 @@ export default function ChatInterface({ fileId }: ChatInterfaceProps) {
                 <button
                   key={s}
                   onClick={() => sendMessage(s)}
-                  className="px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors text-left"
+                  className="px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm text-slate-600 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 transition-colors text-left shadow-sm"
                 >
                   {s}
                 </button>
@@ -105,9 +107,9 @@ export default function ChatInterface({ fileId }: ChatInterfaceProps) {
                 <Bot className="w-5 h-5 text-white" />
               </div>
             )}
-            <div className={`max-w-[80%] ${msg.role === 'user' ? 'bg-blue-600 rounded-2xl rounded-tr-md' : 'bg-gray-800 rounded-2xl rounded-tl-md'} px-4 py-3`}>
-              <div className="text-sm text-gray-100 whitespace-pre-wrap leading-relaxed">
-                {formatMarkdown(msg.content)}
+            <div className={`max-w-[80%] ${msg.role === 'user' ? 'bg-blue-600 text-white rounded-2xl rounded-tr-md' : 'bg-slate-100 text-slate-800 rounded-2xl rounded-tl-md'} px-4 py-3`}>
+              <div className="text-sm whitespace-pre-wrap leading-relaxed">
+                {formatMarkdown(msg.content, msg.role)}
               </div>
               {msg.data?.agents && msg.data.agents.length > 0 && (
                 <div className="mt-3 -mx-1">
@@ -116,8 +118,8 @@ export default function ChatInterface({ fileId }: ChatInterfaceProps) {
               )}
             </div>
             {msg.role === 'user' && (
-              <div className="w-8 h-8 bg-gray-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                <User className="w-5 h-5 text-white" />
+              <div className="w-8 h-8 bg-slate-300 rounded-lg flex items-center justify-center flex-shrink-0">
+                <User className="w-5 h-5 text-slate-700" />
               </div>
             )}
           </div>
@@ -128,8 +130,8 @@ export default function ChatInterface({ fileId }: ChatInterfaceProps) {
             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
               <Bot className="w-5 h-5 text-white" />
             </div>
-            <div className="bg-gray-800 rounded-2xl rounded-tl-md px-4 py-3">
-              <Loader2 className="w-5 h-5 text-blue-400 animate-spin" />
+            <div className="bg-slate-100 rounded-2xl rounded-tl-md px-4 py-3">
+              <Loader2 className="w-5 h-5 text-blue-500 animate-spin" />
             </div>
           </div>
         )}
@@ -137,7 +139,7 @@ export default function ChatInterface({ fileId }: ChatInterfaceProps) {
       </div>
 
       {/* Input */}
-      <div className="border-t border-gray-700 p-4">
+      <div className="border-t border-slate-200 p-4 bg-white">
         <div className="flex gap-3">
           <input
             type="text"
@@ -145,7 +147,7 @@ export default function ChatInterface({ fileId }: ChatInterfaceProps) {
             onChange={e => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Posez une question sur vos données..."
-            className="flex-1 px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
+            className="flex-1 px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
             disabled={loading}
           />
           <button
@@ -161,12 +163,11 @@ export default function ChatInterface({ fileId }: ChatInterfaceProps) {
   );
 }
 
-function formatMarkdown(text: string): React.ReactNode {
-  // Simple markdown-like formatting
+function formatMarkdown(text: string, role: string): React.ReactNode {
   const parts = text.split(/(\*\*[^*]+\*\*)/g);
   return parts.map((part, i) => {
     if (part.startsWith('**') && part.endsWith('**')) {
-      return <strong key={i} className="text-white font-semibold">{part.slice(2, -2)}</strong>;
+      return <strong key={i} className={`font-semibold ${role === 'user' ? 'text-white' : 'text-slate-900'}`}>{part.slice(2, -2)}</strong>;
     }
     return part;
   });
